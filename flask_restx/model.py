@@ -157,8 +157,9 @@ class RawModel(ModelBase):
         for name, field in iteritems(self):
             field = instance(field)
             properties[name] = field.__schema__
-            if field.required:
-                required.add(name)
+            if hasattr(field, 'required'):
+                if field.required:
+                    required.add(name)
             if getattr(field, "discriminator", False):
                 discriminator = name
 
